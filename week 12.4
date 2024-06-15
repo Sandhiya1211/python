@@ -1,0 +1,32 @@
+
+def calculate_revenue(X, shoe_sizes, N, customer_requests):
+    revenue = 0
+    inventory = {size: 0 for size in shoe_sizes} 
+
+    for size in shoe_sizes:
+        inventory[size] = X.count(size)
+
+    for request in customer_requests:
+        desired_size, price = request
+        if inventory.get(desired_size, 0) > 0:  
+            revenue += price
+            inventory[desired_size] -= 1  
+
+    return revenue
+
+
+X = int(input())
+
+shoe_sizes = list(map(int, input().split()))
+
+N = int(input())
+
+customer_requests = []
+
+for _ in range(N):
+    request = tuple(map(int, input().split()))
+    customer_requests.append(request)
+
+total_revenue = calculate_revenue(shoe_sizes, shoe_sizes, N, customer_requests)
+
+print(total_revenue)
